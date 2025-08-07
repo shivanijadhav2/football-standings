@@ -1,0 +1,99 @@
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    background-color: #f0f2f5;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.App {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.App-header {
+    background-color: #282c34;
+    padding: 20px;
+    color: white;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+    .App-header h1 {
+        margin: 0;
+        font-size: 2.5rem;
+    }
+
+    .App-header p {
+        margin-top: 5px;
+        font-size: 1rem;
+        color: #a0a0a0;
+    }
+
+main {
+    background-color: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box; /* To include padding and border in the element's total width and height */
+}
+
+.search-form button {
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    .search-form button:hover:not(:disabled) {
+        background-color: #0056b3;
+    }
+
+    .search-form button:disabled {
+        background-color: #cccccc;
+        cursor: not-allowed;
+    }
+
+.error-message {
+    color: #d9534f;
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    padding: 10px;
+    margin-top: 20px;
+    border-radius: 5px;
+}
+
+.results-container {
+    margin-top: 20px;
+    text-align: left;
+    border-top: 1px solid #eee;
+    padding-top: 20px;
+}
+
+    .results-container h2 {
+        color: #282c34;
+        margin-top: 0;
+    }
+
+    .results-container p {
+        margin: 8px 0;
+    }
+
+    .results-container strong {
+        color: #555;
+    }

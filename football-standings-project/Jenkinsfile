@@ -1,0 +1,58 @@
+pipeline {
+    agent any
+
+    environment {
+        API_FOOTBALL_KEY = credentials('9bb66184e0c8145384fd2cc0f7b914ada57b4e8fd2e4d6d586adcc27c257a978')
+        IMAGE_NAME = "football-standings"
+    }
+
+    stages {
+        stage('Checkout Code') {
+            steps {
+                git branch: 'main', url: 'https://github.com/shivanijadhav2/football-standings.git'
+            }
+        }
+
+        stage('Build Backend') {
+            steps {
+                script {
+                    echo 'Building backend Docker image...'
+                    docker.withRegistry('', 'dockerhub-credentials-id') {
+                        def backendImage = docker.build("${IMAGE_NAME}-backend:${env.BUILD_NUMBER}", './backend')
+                        backendImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Build Frontend') {
+            steps {
+                script {
+                    echo 'Building frontend Docker image...'
+                    docker.withRegistry('', 'dockerhub-credentials-id') {
+                        def frontendImage = docker.build("${IMAGE_NAME}-frontend:${env.BUILD_NUMBER}", './frontend')
+                        frontendImage.push()
+                    }
+                }
+            }
+        }
+
+        stage('Run Unit & Integration Tests') {
+            steps {
+                sh 'docker-compose -f docker-compose.test.yml up --exit-code-from test'
+            }
+        }
+
+        stage('Deploy to Staging') {
+            when {
+                branch 'main'
+            }
+            steps {
+                script {
+                    echo 'Deploying services to Staging environment...'
+                    sh "docker-compose -f docker-compose.yml up -d"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: football-standings-backend
+    ports:
+      - "8080:8080"
+    environment:
+      - API_FOOTBALL_KEY=${API_FOOTBALL_KEY}
+      - OFFLINE_MODE=${OFFLINE_MODE}
+    restart: always
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: football-standings-frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    restart: always
